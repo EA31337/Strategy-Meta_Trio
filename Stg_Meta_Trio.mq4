@@ -6,7 +6,7 @@
 
 /**
  * @file
- * Implements Margin meta strategy.
+ * Implements Trio meta strategy.
  */
 
 // Includes the main code.
