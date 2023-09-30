@@ -1,70 +1,69 @@
 /**
  * @file
- * Implements Margin meta strategy.
+ * Implements Trio meta strategy.
  */
 
 // Prevents processing this includes file multiple times.
-#ifndef STG_META_MARGIN_MQH
-#define STG_META_MARGIN_MQH
+#ifndef STG_META_TRIO_MQH
+#define STG_META_TRIO_MQH
 
 // User input params.
-INPUT2_GROUP("Meta Margin strategy: main params");
-INPUT2 ENUM_STRATEGY Meta_Margin_Strategy_Margin_GT_80 = STRAT_DEMARKER;    // Strategy for free margin > 80%
-INPUT2 ENUM_STRATEGY Meta_Margin_Strategy_Margin_GT_50 = STRAT_OSCILLATOR;  // Strategy for free margin (50%-80%)
-INPUT2 ENUM_STRATEGY Meta_Margin_Strategy_Margin_LT_50 = STRAT_NONE;        // Strategy for free margin (20-50%)
-INPUT2 ENUM_STRATEGY Meta_Margin_Strategy_Margin_LT_20 = STRAT_NONE;        // Strategy for free margin < 20%
-INPUT2_GROUP("Meta Margin strategy: common params");
-INPUT2 float Meta_Margin_LotSize = 0;                // Lot size
-INPUT2 int Meta_Margin_SignalOpenMethod = 0;         // Signal open method
-INPUT2 float Meta_Margin_SignalOpenLevel = 0;        // Signal open level
-INPUT2 int Meta_Margin_SignalOpenFilterMethod = 32;  // Signal open filter method
-INPUT2 int Meta_Margin_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
-INPUT2 int Meta_Margin_SignalOpenBoostMethod = 0;    // Signal open boost method
-INPUT2 int Meta_Margin_SignalCloseMethod = 0;        // Signal close method
-INPUT2 int Meta_Margin_SignalCloseFilter = 32;       // Signal close filter (-127-127)
-INPUT2 float Meta_Margin_SignalCloseLevel = 0;       // Signal close level
-INPUT2 int Meta_Margin_PriceStopMethod = 0;          // Price limit method
-INPUT2 float Meta_Margin_PriceStopLevel = 2;         // Price limit level
-INPUT2 int Meta_Margin_TickFilterMethod = 32;        // Tick filter method (0-255)
-INPUT2 float Meta_Margin_MaxSpread = 4.0;            // Max spread to trade (in pips)
-INPUT2 short Meta_Margin_Shift = 0;                  // Shift
-INPUT2 float Meta_Margin_OrderCloseLoss = 200;       // Order close loss
-INPUT2 float Meta_Margin_OrderCloseProfit = 200;     // Order close profit
-INPUT2 int Meta_Margin_OrderCloseTime = 2880;        // Order close time in mins (>0) or bars (<0)
+INPUT2_GROUP("Meta Trio strategy: main params");
+INPUT2 ENUM_STRATEGY Meta_Trio_Strategy_SignalOpen = STRAT_OSCILLATOR_RANGE;  // Strategy for signal open
+INPUT2 ENUM_STRATEGY Meta_Trio_Strategy_SignalClose = STRAT_NONE;             // Strategy for signal close
+INPUT2 ENUM_STRATEGY Meta_Trio_Strategy_Stops = STRAT_MA_TREND;               // Strategy for price stops
+INPUT2_GROUP("Meta Trio strategy: common params");
+INPUT2 float Meta_Trio_LotSize = 0;                // Lot size
+INPUT2 int Meta_Trio_SignalOpenMethod = 0;         // Signal open method
+INPUT2 float Meta_Trio_SignalOpenLevel = 0;        // Signal open level
+INPUT2 int Meta_Trio_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT2 int Meta_Trio_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
+INPUT2 int Meta_Trio_SignalOpenBoostMethod = 0;    // Signal open boost method
+INPUT2 int Meta_Trio_SignalCloseMethod = 0;        // Signal close method
+INPUT2 int Meta_Trio_SignalCloseFilter = 32;       // Signal close filter (-127-127)
+INPUT2 float Meta_Trio_SignalCloseLevel = 0;       // Signal close level
+INPUT2 int Meta_Trio_PriceStopMethod = 1;          // Price limit method
+INPUT2 float Meta_Trio_PriceStopLevel = 2;         // Price limit level
+INPUT2 int Meta_Trio_TickFilterMethod = 32;        // Tick filter method (0-255)
+INPUT2 float Meta_Trio_MaxSpread = 4.0;            // Max spread to trade (in pips)
+INPUT2 short Meta_Trio_Shift = 0;                  // Shift
+INPUT2 float Meta_Trio_OrderCloseLoss = 200;       // Order close loss
+INPUT2 float Meta_Trio_OrderCloseProfit = 200;     // Order close profit
+INPUT2 int Meta_Trio_OrderCloseTime = 2880;        // Order close time in mins (>0) or bars (<0)
 
 // Structs.
 // Defines struct with default user strategy values.
-struct Stg_Meta_Margin_Params_Defaults : StgParams {
-  Stg_Meta_Margin_Params_Defaults()
-      : StgParams(::Meta_Margin_SignalOpenMethod, ::Meta_Margin_SignalOpenFilterMethod, ::Meta_Margin_SignalOpenLevel,
-                  ::Meta_Margin_SignalOpenBoostMethod, ::Meta_Margin_SignalCloseMethod, ::Meta_Margin_SignalCloseFilter,
-                  ::Meta_Margin_SignalCloseLevel, ::Meta_Margin_PriceStopMethod, ::Meta_Margin_PriceStopLevel,
-                  ::Meta_Margin_TickFilterMethod, ::Meta_Margin_MaxSpread, ::Meta_Margin_Shift) {
-    Set(STRAT_PARAM_LS, ::Meta_Margin_LotSize);
-    Set(STRAT_PARAM_OCL, ::Meta_Margin_OrderCloseLoss);
-    Set(STRAT_PARAM_OCP, ::Meta_Margin_OrderCloseProfit);
-    Set(STRAT_PARAM_OCT, ::Meta_Margin_OrderCloseTime);
-    Set(STRAT_PARAM_SOFT, ::Meta_Margin_SignalOpenFilterTime);
+struct Stg_Meta_Trio_Params_Defaults : StgParams {
+  Stg_Meta_Trio_Params_Defaults()
+      : StgParams(::Meta_Trio_SignalOpenMethod, ::Meta_Trio_SignalOpenFilterMethod, ::Meta_Trio_SignalOpenLevel,
+                  ::Meta_Trio_SignalOpenBoostMethod, ::Meta_Trio_SignalCloseMethod, ::Meta_Trio_SignalCloseFilter,
+                  ::Meta_Trio_SignalCloseLevel, ::Meta_Trio_PriceStopMethod, ::Meta_Trio_PriceStopLevel,
+                  ::Meta_Trio_TickFilterMethod, ::Meta_Trio_MaxSpread, ::Meta_Trio_Shift) {
+    Set(STRAT_PARAM_LS, ::Meta_Trio_LotSize);
+    Set(STRAT_PARAM_OCL, ::Meta_Trio_OrderCloseLoss);
+    Set(STRAT_PARAM_OCP, ::Meta_Trio_OrderCloseProfit);
+    Set(STRAT_PARAM_OCT, ::Meta_Trio_OrderCloseTime);
+    Set(STRAT_PARAM_SOFT, ::Meta_Trio_SignalOpenFilterTime);
   }
 };
 
-class Stg_Meta_Margin : public Strategy {
+class Stg_Meta_Trio : public Strategy {
  protected:
   Account account;
   DictStruct<long, Ref<Strategy>> strats;
 
  public:
-  Stg_Meta_Margin(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
+  Stg_Meta_Trio(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
       : Strategy(_sparams, _tparams, _cparams, _name) {}
 
-  static Stg_Meta_Margin *Init(ENUM_TIMEFRAMES _tf = NULL, EA *_ea = NULL) {
+  static Stg_Meta_Trio *Init(ENUM_TIMEFRAMES _tf = NULL, EA *_ea = NULL) {
     // Initialize strategy initial values.
-    Stg_Meta_Margin_Params_Defaults stg_margin_defaults;
-    StgParams _stg_params(stg_margin_defaults);
+    Stg_Meta_Trio_Params_Defaults stg_meta_trio_defaults;
+    StgParams _stg_params(stg_meta_trio_defaults);
     // Initialize Strategy instance.
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
-    Strategy *_strat = new Stg_Meta_Margin(_stg_params, _tparams, _cparams, "(Meta) Margin");
+    Strategy *_strat = new Stg_Meta_Trio(_stg_params, _tparams, _cparams, "(Meta) Trio");
     return _strat;
   }
 
@@ -72,10 +71,9 @@ class Stg_Meta_Margin : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    StrategyAdd(Meta_Margin_Strategy_Margin_GT_80, 1);
-    StrategyAdd(Meta_Margin_Strategy_Margin_GT_50, 2);
-    StrategyAdd(Meta_Margin_Strategy_Margin_LT_50, 3);
-    StrategyAdd(Meta_Margin_Strategy_Margin_LT_20, 4);
+    StrategyAdd(Meta_Trio_Strategy_SignalOpen, 1);
+    StrategyAdd(Meta_Trio_Strategy_SignalClose, 2);
+    StrategyAdd(Meta_Trio_Strategy_Stops, 3);
   }
 
   /**
@@ -283,29 +281,33 @@ class Stg_Meta_Margin : public Strategy {
   }
 
   /**
+   * Gets price stop value.
+   */
+  float PriceStop(ENUM_ORDER_TYPE _cmd, ENUM_ORDER_TYPE_VALUE _mode, int _method = 0, float _level = 0.0f,
+                  short _bars = 4) {
+    float _result = 0;
+    if (_method == 0) {
+      // Ignores calculation when method is 0.
+      return (float)_result;
+    }
+    Ref<Strategy> _strat_ref = strats.GetByKey(3);
+    if (!_strat_ref.IsSet()) {
+      // Returns false when strategy is not set.
+      return false;
+    }
+    _level = _level == 0.0f ? _strat_ref.Ptr().Get<float>(STRAT_PARAM_SOL) : _level;
+    _method = _strat_ref.Ptr().Get<int>(STRAT_PARAM_SOM);
+    //_shift = _shift == 0 ? _strat_ref.Ptr().Get<int>(STRAT_PARAM_SHIFT) : _shift;
+    _result = _strat_ref.Ptr().PriceStop(_cmd, _mode, _method, _level /*, _shift*/);
+    return (float)_result;
+  }
+
+  /**
    * Check strategy's opening signal.
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method, float _level = 0.0f, int _shift = 0) {
     bool _result = true;
-    // uint _ishift = _indi.GetShift();
-    // double _margin_free = account.GetMarginFreeInPct(); // GH-720: @fixme
-    double _margin_free = 100 / account.GetBalance() * account.GetMarginFree();
-    // double _margin_free =
-    uint _ishift = _shift;
-    Ref<Strategy> _strat_ref;
-    if (_margin_free >= 80) {
-      // Margin value is greater than 80% (between 80% and 100%).
-      _strat_ref = strats.GetByKey(1);
-    } else if (_margin_free >= 50) {
-      // Margin value is greater than 50% (between 50% and 80%).
-      _strat_ref = strats.GetByKey(2);
-    } else if (_margin_free <= 20) {
-      // Margin value is lesser than 20% (between 0% and 20%).
-      _strat_ref = strats.GetByKey(4);
-    } else if (_margin_free <= 50) {
-      // Margin value is lesser than 50% (between 20% and 50%).
-      _strat_ref = strats.GetByKey(3);
-    }
+    Ref<Strategy> _strat_ref = strats.GetByKey(1);
     if (!_strat_ref.IsSet()) {
       // Returns false when strategy is not set.
       return false;
@@ -321,10 +323,18 @@ class Stg_Meta_Margin : public Strategy {
    * Check strategy's closing signal.
    */
   bool SignalClose(ENUM_ORDER_TYPE _cmd, int _method, float _level = 0.0f, int _shift = 0) {
-    bool _result = false;
-    _result = SignalOpen(Order::NegateOrderType(_cmd), _method, _level, _shift);
+    bool _result = true;
+    Ref<Strategy> _strat_ref = strats.GetByKey(2);
+    if (!_strat_ref.IsSet()) {
+      // Returns signal from default strategy used for signal open.
+      return SignalOpen(Order::NegateOrderType(_cmd), _method, _level, _shift);
+    }
+    _level = _level == 0.0f ? _strat_ref.Ptr().Get<float>(STRAT_PARAM_SOL) : _level;
+    _method = _method == 0 ? _strat_ref.Ptr().Get<int>(STRAT_PARAM_SOM) : _method;
+    _shift = _shift == 0 ? _strat_ref.Ptr().Get<int>(STRAT_PARAM_SHIFT) : _shift;
+    _result &= _strat_ref.Ptr().SignalClose(_cmd, _method, _level, _shift);
     return _result;
   }
 };
 
-#endif  // STG_META_MARGIN_MQH
+#endif  // STG_META_TRIO_MQH

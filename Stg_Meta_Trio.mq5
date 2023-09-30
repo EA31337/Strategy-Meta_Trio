@@ -1,6 +1,6 @@
 /**
  * @file
- * Implements Margin meta strategy.
+ * Implements Trio meta strategy.
  */
 
 // Includes conditional compilation directives.
@@ -32,13 +32,13 @@ input ENUM_LOG_LEVEL Log_Level = V_INFO;  // Log level.
 input bool Info_On_Chart = true;          // Display info on chart.
 
 // Includes strategy class.
-#include "Stg_Meta_Margin.mqh"
+#include "Stg_Meta_Trio.mqh"
 
 // Defines.
-#define ea_name "Strategy Meta Margin"
+#define ea_name "Strategy Meta Trio"
 #define ea_version "2.000"
-#define ea_desc "Margin meta strategy to trade with different strategies based on the current account's margin values."
-#define ea_link "https://github.com/EA31337/Strategy-Meta_Margin"
+#define ea_desc "Trio meta strategy to trade with different strategies based on the current account's margin values."
+#define ea_link "https://github.com/EA31337/Strategy-Meta_Trio"
 #define ea_author "EA31337 Ltd"
 
 // Properties.
@@ -64,7 +64,7 @@ int OnInit() {
   bool _result = true;
   EAParams ea_params(__FILE__, Log_Level);
   ea = new EA(ea_params);
-  _result &= ea.StrategyAdd<Stg_Meta_Margin>(Active_Tfs);
+  _result &= ea.StrategyAdd<Stg_Meta_Trio>(Active_Tfs);
   return (_result ? INIT_SUCCEEDED : INIT_FAILED);
 }
 

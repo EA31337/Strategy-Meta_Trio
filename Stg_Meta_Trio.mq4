@@ -6,8 +6,8 @@
 
 /**
  * @file
- * Implements Margin meta strategy.
+ * Implements Trio meta strategy.
  */
 
 // Includes the main code.
-#include "Stg_Meta_Margin.mq5"
+#include "Stg_Meta_Trio.mq5"

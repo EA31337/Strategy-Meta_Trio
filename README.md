@@ -7,8 +7,8 @@
 [![License][license-image]][license-link]
 [![Edit][gh-edit-badge]][gh-edit-link]
 
-Margin meta strategy to trade with different strategies
-based on the current account's margin values.
+Trio meta strategy to trade with 3 different strategies
+for signal open, close and price stops.
 
 ## Dependencies
 
