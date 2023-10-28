@@ -12,24 +12,24 @@ INPUT2_GROUP("Meta Trio strategy: main params");
 INPUT2 ENUM_STRATEGY Meta_Trio_Strategy_SignalOpen = STRAT_OSCILLATOR_RANGE;  // Strategy for signal open
 INPUT2 ENUM_STRATEGY Meta_Trio_Strategy_SignalClose = STRAT_NONE;             // Strategy for signal close
 INPUT2 ENUM_STRATEGY Meta_Trio_Strategy_Stops = STRAT_MA_TREND;               // Strategy for price stops
-INPUT2_GROUP("Meta Trio strategy: common params");
-INPUT2 float Meta_Trio_LotSize = 0;                // Lot size
-INPUT2 int Meta_Trio_SignalOpenMethod = 0;         // Signal open method
-INPUT2 float Meta_Trio_SignalOpenLevel = 0;        // Signal open level
-INPUT2 int Meta_Trio_SignalOpenFilterMethod = 32;  // Signal open filter method
-INPUT2 int Meta_Trio_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
-INPUT2 int Meta_Trio_SignalOpenBoostMethod = 0;    // Signal open boost method
-INPUT2 int Meta_Trio_SignalCloseMethod = 0;        // Signal close method
-INPUT2 int Meta_Trio_SignalCloseFilter = 32;       // Signal close filter (-127-127)
-INPUT2 float Meta_Trio_SignalCloseLevel = 0;       // Signal close level
-INPUT2 int Meta_Trio_PriceStopMethod = 1;          // Price limit method
-INPUT2 float Meta_Trio_PriceStopLevel = 2;         // Price limit level
-INPUT2 int Meta_Trio_TickFilterMethod = 32;        // Tick filter method (0-255)
-INPUT2 float Meta_Trio_MaxSpread = 4.0;            // Max spread to trade (in pips)
-INPUT2 short Meta_Trio_Shift = 0;                  // Shift
-INPUT2 float Meta_Trio_OrderCloseLoss = 200;       // Order close loss
-INPUT2 float Meta_Trio_OrderCloseProfit = 200;     // Order close profit
-INPUT2 int Meta_Trio_OrderCloseTime = 2880;        // Order close time in mins (>0) or bars (<0)
+INPUT3_GROUP("Meta Trio strategy: common params");
+INPUT3 float Meta_Trio_LotSize = 0;                // Lot size
+INPUT3 int Meta_Trio_SignalOpenMethod = 0;         // Signal open method
+INPUT3 float Meta_Trio_SignalOpenLevel = 0;        // Signal open level
+INPUT3 int Meta_Trio_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT3 int Meta_Trio_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
+INPUT3 int Meta_Trio_SignalOpenBoostMethod = 0;    // Signal open boost method
+INPUT3 int Meta_Trio_SignalCloseMethod = 0;        // Signal close method
+INPUT3 int Meta_Trio_SignalCloseFilter = 32;       // Signal close filter (-127-127)
+INPUT3 float Meta_Trio_SignalCloseLevel = 0;       // Signal close level
+INPUT3 int Meta_Trio_PriceStopMethod = 1;          // Price limit method
+INPUT3 float Meta_Trio_PriceStopLevel = 2;         // Price limit level
+INPUT3 int Meta_Trio_TickFilterMethod = 32;        // Tick filter method (0-255)
+INPUT3 float Meta_Trio_MaxSpread = 4.0;            // Max spread to trade (in pips)
+INPUT3 short Meta_Trio_Shift = 0;                  // Shift
+INPUT3 float Meta_Trio_OrderCloseLoss = 200;       // Order close loss
+INPUT3 float Meta_Trio_OrderCloseProfit = 200;     // Order close profit
+INPUT3 int Meta_Trio_OrderCloseTime = 2880;        // Order close time in mins (>0) or bars (<0)
 
 // Structs.
 // Defines struct with default user strategy values.
